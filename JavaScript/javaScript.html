@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<title>总览</title>
+	</head>
+<body>
+<h1>总览</h1>
+
+<p>Drafts 提供的 JavaScript 使用【】作为核心，共支持</p>
+
+<p>目前， 仅有 iOS 版本的 Drafts 支持使用 JavaScript。</p>
+
+<h2>标记说明</h2>
+
+<h1>Action</h1>
+
+<p>除了使用 <code>find</code> 方法来查询一个动作，还可以创建一个全局对象 <code>action</code>，以便在脚本中获取当前动作的名字和控制流。</p>
+
+<h2>可调用的实例属性</h2>
+
+<ul>
+	<li><code>name</code><em> [动作名字，只读]</em>
+
+		<ul>
+			<li>返回动作的名字。</li>
+		</ul></li>
+</ul>
+
+<h2>可调用的类函数</h2>
+
+<ul>
+	<li><code>find(name)</code> -&gt; <em>动作</em>
+
+		<ul>
+			<li>搜索指定名字的动作。如果找到则返回动作，如果未找到则返回「未定义」。</li>
+		</ul></li>
+</ul>
+
+<h2>示例</h2>
+
+<pre><code class="code-highlighted code-js"><span class="syntax-all syntax-comment">// 搜索动作
+</span><span class="syntax-all syntax-keyword">var</span> <span class="syntax-all syntax-parameter">action</span> <span class="syntax-all syntax-keyword">=</span> <span class="syntax-all syntax-parameter">Action</span><span class="syntax-all syntax-keyword">.</span><span class="syntax-all syntax-variable">find</span>(<span class="syntax-all syntax-string">&quot;Copy&quot;</span>);
+<span class="syntax-all syntax-parameter">app</span><span class="syntax-all syntax-keyword">.</span><span class="syntax-all syntax-variable">queueAction</span>(<span class="syntax-all syntax-parameter">action</span>, <span class="syntax-all syntax-parameter">draft</span>);</code></pre>
+
+<h1>ActionGroup</h1>
+
+<p>代表一个动作组。这个对象可以用来搜索动作组，并在之后使用 <code>App</code> 这个对象中的方法来加载找到的动作组。</p>
+
+<h2>可调用的实例属性</h2>
+
+<ul>
+	<li><code>name</code> <em>[动作组名字，只读]</em>
+
+		<ul>
+			<li>返回动作组的名字。</li>
+		</ul></li>
+</ul>
+
+<h2>可调用的类函数</h2>
+
+<ul>
+	<li><code>getAll()</code> -&gt; <em>以列表形式返回动作组对象</em>
+
+		<ul>
+			<li>获取所有可用的动作组。</li>
+		</ul></li>
+	<li><code>find(name)</code> -&gt; <em>动作组</em>
+
+		<ul>
+			<li>搜索指定名字的动作。如果找到则返回动作，如果未找到则返回「未定义」。</li>
+		</ul></li>
+</ul>
+
+<h2>示例</h2>
+
+<pre><code class="code-highlighted code-js"><span class="syntax-all syntax-comment">// 搜索动作组
+</span><span class="syntax-all syntax-keyword">var</span> <span class="syntax-all syntax-parameter">group</span> <span class="syntax-all syntax-keyword">=</span> <span class="syntax-all syntax-parameter">ActionGroup</span><span class="syntax-all syntax-keyword">.</span><span class="syntax-all syntax-variable">find</span>(<span class="syntax-all syntax-string">&quot;Basic&quot;</span>); <span class="syntax-all syntax-comment">//搜索「Basic」这个动作组，并赋值给变量「group」
+</span><span class="syntax-all syntax-parameter">app</span><span class="syntax-all syntax-keyword">.</span><span class="syntax-all syntax-variable">loadActionGroup</span>(<span class="syntax-all syntax-parameter">group</span>);</code></pre>
+
+<h1>Alarm</h1>
+
+<p><code>Alarm</code> 可以将提醒附加到系统自带的「提醒事项」，或添加到日历中的事件上。需要搭配 <code>ReminderList</code> 或 <code>Calender</code> 对象来使用。</p>
+
+<h2>可调用的类函数</h2>
+
+<ul>
+	<li><code>alarmWithDate(日期)</code> -&gt; <em>输出一个提醒</em>
+
+		<ul>
+			<li>将提醒设置为指定的日期。</li>
+		</ul></li>
+	<li><code>alarmWithOffset(秒数)</code> -&gt; <em>输出一个提醒</em>
+
+		<ul>
+			<li>将提醒设置在事件开始日期过指定秒数之后。<strong>注意：这种方式创建的提醒只支持日历的事件，不支持提醒事项。</strong></li>
+		</ul></li>
+</ul>
+
+<h2>示例</h2>
+
+<pre><code class="code-highlighted code-js"><span class="syntax-all syntax-keyword">var</span> <span class="syntax-all syntax-parameter">list</span> <span class="syntax-all syntax-keyword">=</span> <span class="syntax-all syntax-parameter">ReminderList</span><span class="syntax-all syntax-keyword">.</span><span class="syntax-all syntax-variable">findOrCreate</span>(<span class="syntax-all syntax-string">&quot;Errands&quot;</span>);
+<span class="syntax-all syntax-keyword">var</span> <span class="syntax-all syntax-parameter">reminder</span> <span class="syntax-all syntax-keyword">=</span> <span class="syntax-all syntax-parameter">list</span><span class="syntax-all syntax-keyword">.</span><span class="syntax-all syntax-variable">createReminder</span>();
+<span class="syntax-all syntax-parameter">reminder</span><span class="syntax-all syntax-keyword">.</span><span class="syntax-all syntax-parameter">title</span> <span class="syntax-all syntax-keyword">=</span> <span class="syntax-all syntax-string">&quot;Get more paper towels&quot;</span>;
+
+<span class="syntax-all syntax-keyword">var</span> <span class="syntax-all syntax-parameter">alarm</span> <span class="syntax-all syntax-keyword">=</span> <span class="syntax-all syntax-parameter">Alarm</span><span class="syntax-all syntax-keyword">.</span><span class="syntax-all syntax-variable">alarmWithDate</span>((<span class="syntax-all syntax-constant">3</span>)<span class="syntax-all syntax-keyword">.</span><span class="syntax-all syntax-variable">days</span>()<span class="syntax-all syntax-keyword">.</span><span class="syntax-all syntax-variable">fromNow</span>());
+<span class="syntax-all syntax-parameter">reminder</span><span class="syntax-all syntax-keyword">.</span><span class="syntax-all syntax-variable">addAlarm</span>(<span class="syntax-all syntax-parameter">alarm</span>);
+
+<span class="syntax-all syntax-parameter">reminder</span><span class="syntax-all syntax-keyword">.</span><span class="syntax-all syntax-variable">update</span>();</code></pre>
+
+<h1>App</h1>
+
+<p>Drafts 提供了 <code>App</code> 这个对象，它可以让用户访问应用级别的功能。</p>
+
+<h2>可调用的实例属性</h2>
+
+<ul>
+	<li><code>version</code><em>[字符串，只读]</em>
+
+		<ul>
+			<li>返回当前草稿的版本号。</li>
+		</ul></li>
+	<li><code>themeMode</code><em>[字符串]</em>
+
+		<ul>
+			<li>获取/设置当前的主题模式。可选的模式有：
+
+				<ul>
+					<li>light（明亮模式）</li>
+					<li>dark（黑暗模式）</li>
+					<li>automatic（自动设置）</li>
+				</ul></li>
+		</ul></li>
+	<li><code>currentThemeMode</code><em>[字符串，只读]</em>
+
+		<ul>
+			<li>返回当前激活的主题模式。这一实例会同时参考当前是否开启了「自动设置」功能。如果想要让脚本根据当前的主题模式运行分支，这是最适合使用的实例。 </li>
+		</ul></li>
+</ul>
+
+<p>isDraftListVisible <a href="">boolean, readonly</a></p>
+
+<p>Is the draft list side panel is visible.</p>
+
+<p>isActionListVisible <a href="">boolean, readonly</a></p>
+
+<p>Is the action list side panel is visible.</p>
+
+<p>isIdleDisabled <a href="">boolean</a></p>
+
+<p>Is system sleep timer disabled preventing screen dimming/sleep.</p>
+
+</body>
+</html>
+
