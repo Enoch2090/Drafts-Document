@@ -1,3 +1,9 @@
+<head> 
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script> 
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script> 
+</head> 
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+
 # URL Schemes
 Drafts 支持基于 [x-callback-url 调用方法](http://x-callback-url.com/) 的唤起动作，它们均以 `drafts5:` 开头。所有的唤起动作链接都遵循如下格式：
 ```js
@@ -30,8 +36,4 @@ drafts5://x-callback-url/[执行操作的名称]?[执行操作的参数]
 
 
 
-<head> 
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script> 
-<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/v4-shims.js"></script> 
-</head> 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+
